@@ -27,7 +27,7 @@ webpki = "0.21.0"
 
 [dependencies.jsonwebtoken]
 #version = ">=5.0.1, <=6.0"
-version  = "7.0.0-alpha.2"
+version  = "7.0.0-beta.1"
 optional = true
 
 [dependencies.chrono]

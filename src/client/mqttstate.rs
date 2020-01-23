@@ -398,7 +398,7 @@ fn connect_packet(mqttoptions: &MqttOptions) -> Result<Connect, ConnectError> {
 fn gen_iotcore_password(project: String, key: &[u8], expiry: i64) -> Result<String, ConnectError> {
     //TODO: Remove chrono for current utc timestamp and use something in standard library
     use chrono::Utc;
-    use jsonwebtoken::{encode, Algorithm, Header};
+    use jsonwebtoken::{encode, Algorithm, Header, EncodingKey};
     use serde_derive::{Deserialize, Serialize};
 
     #[derive(Debug, Serialize, Deserialize)]
@@ -418,7 +418,7 @@ fn gen_iotcore_password(project: String, key: &[u8], expiry: i64) -> Result<Stri
 
     let claims = Claims { iat, exp, aud: project };
 
-    Ok(encode(&jwt_header, &claims, &key)?)
+    Ok(encode(&jwt_header, &claims, &EncodingKey::from_secret(key))?)
 }
 
 #[cfg(test)]
